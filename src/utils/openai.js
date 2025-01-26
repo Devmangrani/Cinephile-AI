@@ -1,16 +1,20 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GEMINI_API_KEY } from "./constants";
 
-const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
-
-if (!API_KEY) {
-  throw new Error('REACT_APP_GEMINI_API_KEY is not defined in environment variables');
-}
-
-const genAI = new GoogleGenerativeAI(API_KEY);
-
-export const getGeminiModel = () => {
+const getGeminiModel = () => {
   try {
-    return genAI.getGenerativeModel({ 
+    console.log("Initializing Gemini model..."); // Debug log
+    
+    if (!GEMINI_API_KEY) {
+      console.error("Gemini API key is not configured");
+      return null;
+    }
+
+    console.log("API Key available, creating GenAI instance..."); // Debug log
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    
+    console.log("Creating model instance..."); // Debug log
+    const model = genAI.getGenerativeModel({ 
       model: "gemini-pro",
       generationConfig: {
         temperature: 0.7,
@@ -19,9 +23,12 @@ export const getGeminiModel = () => {
         maxOutputTokens: 2048,
       },
     });
+    
+    console.log("Model initialized successfully"); // Debug log
+    return model;
   } catch (error) {
     console.error("Error initializing Gemini model:", error);
-    throw error;
+    return null;
   }
 };
 

@@ -41,31 +41,58 @@ const GptSearchBar = () => {
       dispatch(setLoading(true));
 
       const model = getGeminiModel();
+      console.log("Gemini Model:", model); // Debug log
+
+      if (!model) {
+        throw new Error("AI model not initialized. Please check your API key.");
+      }
+
       const prompt = `Act as a Movie Recommendation system and suggest some movies for the query: "${userQuery}". Only give me names of 5 movies, comma separated. For example: Gadar, Sholay, Don, Golmaal, Koi Mil Gaya. Do not include any other text or explanations.`;
 
+      console.log("Sending prompt to Gemini..."); // Debug log
       const result = await model.generateContent(prompt);
-      const response = await result.response;
+      console.log("Gemini response:", result); // Debug log
+
+      if (!result || !result.response) {
+        throw new Error("Failed to get response from AI model");
+      }
+
+      const response = result.response;
       const text = response.text();
+      console.log("Generated text:", text); // Debug log
       
       if (!text) {
-        throw new Error("No recommendations received");
+        throw new Error("No recommendations received from AI model");
       }
 
       const movieNames = text.split(",").map(movie => movie.trim());
+      console.log("Movie names:", movieNames); // Debug log
+
+      if (!movieNames.length) {
+        throw new Error("No movie names found in the response");
+      }
       
       // For each movie search TMDB API
+      console.log("Searching TMDB for movies..."); // Debug log
       const promiseArray = movieNames.map((movie) => searchMovieTMDB(movie));
       const tmdbResults = await Promise.all(promiseArray);
+      const filteredResults = tmdbResults.filter(results => results && results.length > 0);
+      console.log("TMDB results:", filteredResults); // Debug log
+
+      if (!filteredResults.length) {
+        throw new Error("No matching movies found in the database");
+      }
 
       dispatch(
         addGptMovieResult({ 
           movieNames: movieNames, 
-          movieResults: tmdbResults.filter(results => results && results.length > 0)
+          movieResults: filteredResults
         })
       );
     } catch (error) {
-      console.error("Error generating recommendations:", error);
-      setError("Failed to get movie recommendations. Please try again.");
+      console.error("Error in GPT search:", error);
+      setError(error.message || "Failed to get movie recommendations. Please try again.");
+    } finally {
       dispatch(setLoading(false));
     }
   };

@@ -23,6 +23,17 @@ const Header = () => {
       });
   };
 
+  const handleLogoClick = () => {
+    if (user) {
+      navigate("/browse");
+      if (showGptSearch) {
+        dispatch(toggleGptSearchView());
+      }
+    } else {
+      navigate("/");
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -60,12 +71,14 @@ const Header = () => {
   };
 
   return (
-    <div className="fixed w-full px-4 md:px-8 py-2 bg-gradient-to-b from-black via-black/90 to-transparent z-10">
+    <div className="fixed w-full px-4 md:px-8 py-2 from-black via-black/
+    90 to-transparent bg-black shadow-lg z-30">
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
         <img 
-          className="w-36 md:w-48 h-12 md:h-16 object-contain hover:scale-105 transition-transform duration-300" 
+          className="w-36 md:w-48 h-12 md:h-16 object-contain hover:scale-105 transition-transform duration-300 cursor-pointer" 
           src={cinephileLogo} 
-          alt="Cinephile Logo" 
+          alt="Cinephile Logo"
+          onClick={handleLogoClick}
         />
         {user && (
           <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4">
@@ -91,7 +104,7 @@ const Header = () => {
               <img
                 className="hidden md:block w-10 h-10 md:w-12 md:h-12 rounded-full cursor-pointer hover:scale-110 transition-all duration-300 border-2 border-purple-500 shadow-lg"
                 alt="usericon"
-                src={user?.photoURL}
+                src={user?.photoURL || "https://assets.leetcode.com/users/devbuddy55/avatar_1726025863.png"}
               />
               <button 
                 onClick={handleSignOut} 

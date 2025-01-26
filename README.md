@@ -45,7 +45,8 @@
   - Smooth animations and transitions
   - Custom purple theme with modern aesthetics
   - Dynamic content loading with loading states
-
+  - Responsive and user-friendly design
+  
 ### 🔐 Secure Authentication
 - **User Management**
   - Email/Password authentication
@@ -55,20 +56,55 @@
 
 ## 🚀 Latest Updates
 
-### New Features
 - **Enhanced Movie Discovery**
   - Instant trailer viewing on movie card click
   - Floating back button for better navigation
   - Improved scrolling performance
   - Smart movie overview expansion
+## 🚀 Getting Started
 
-### UI Improvements
-- **Better User Experience**
-  - Smooth scroll behavior
-  - Lazy loading for better performance
-  - Responsive movie cards
-  - Interactive hover effects
-  - Loading animations
+### Prerequisites
+1. **TMDB API Key**
+   - Visit [TMDB Website](https://www.themoviedb.org/)
+   - Create an account or sign in
+   - Go to Settings > API
+   - Register for a new API key (choose "Developer" option)
+   - Copy your API key (v3 auth)
+
+2. **Google Gemini API Key**
+   - Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
+   - Sign in with your Google account
+   - Click "Get API Key"
+   - Create a new API key
+   - Enable the Gemini API in your Google Cloud Console
+   - Copy your API key
+
+### Installation Steps
+1. Clone the repository
+```bash
+git clone https://github.com/Devmangrani/Cinephile-ai.git
+cd Cinephile-ai
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Set up environment variables
+```bash
+cp .env.example .env
+```
+Edit `.env` file with your API keys:
+```env
+REACT_APP_TMDB_API_KEY=your_tmdb_api_key
+REACT_APP_GEMINI_API_KEY=your_gemini_api_key
+```
+
+4. Start the development server
+```bash
+npm start
+```
 
 ## 💡 How It Works
 
@@ -98,31 +134,11 @@
   - Secure user management
   - Protected routes
 
-- 🎥 **Movie Data**
-  - TMDB API integration
-  - YouTube Embed API
-  - Real-time movie data
-
-## 🎯 Core Features in Action
-
-### AI Movie Search
-```text
-User: "Show me movies like Inception"
-AI: *Analyzes context and returns similar mind-bending movies*
-Result: Instant access to trailers and information
-```
-
-### Smart Recommendations
-- Contextual understanding
-- Genre-based suggestions
-- Mood-based recommendations
-- Similar movie finder
-
-### Trailer Integration
-- One-click trailer access
-- Full-screen preview mode
-- Auto-quality adjustment
-- Smooth playback controls
+## 🌐 Multi-Language Support
+- English
+- Hindi
+- Japanese
+- More languages coming soon!
 
 ## 🔜 Upcoming Features
 - Personalized watchlists
@@ -131,15 +147,23 @@ Result: Instant access to trailers and information
 - Advanced filtering options
 - User reviews and ratings
 
-## 🌐 Multi-Language Support
-- English
-- Hindi
-- Japanese
-- More languages coming soon!
+## 🤝 Contributing
+We welcome contributions! Here's how you can help:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 🌟 Live Demo
+Check out the live demo: [Cinephile AI](https://cinephile-ai.web.app)
+
+## 📝 License
+This project is open source and available under the MIT License.
 
 ---
 
 <div align="center">
-  <p>Built with ❤️ for movie lovers</p>
+  <p>Built with ❤️ by Dev Mangrani for movie lovers</p>
   <p>Powered by React, Firebase, TMDB, and Google Gemini AI</p>
 </div>

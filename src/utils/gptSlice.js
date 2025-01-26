@@ -12,21 +12,23 @@ const gptSlice = createSlice({
   reducers: {
     toggleGptSearchView: (state) => {
       state.showGptSearch = !state.showGptSearch;
+      if (!state.showGptSearch) {
+        state.movieResults = null;
+        state.movieNames = null;
+      }
     },
     addGptMovieResult: (state, action) => {
       const { movieNames, movieResults } = action.payload;
-      state.movieNames = movieNames;
       state.movieResults = movieResults;
+      state.movieNames = movieNames;
       state.showMovieSuggestions = true;
-      state.isLoading = false;
+      console.log("State updated with:", { movieNames, movieResults });
     },
     toggleMovieSuggestions: (state) => {
       state.showMovieSuggestions = !state.showMovieSuggestions;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
-      state.movieResults = null;
-      state.movieNames = null;
     },
   },
 });
